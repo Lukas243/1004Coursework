@@ -12,7 +12,7 @@
 header {
     grid-area: header;
     text-align: center;
-    border: 2px solid black;
+    border: 1px solid black;
     margin: 1px;
     padding: 20px;
 }
@@ -20,7 +20,7 @@ header {
 
 main {
     grid-area: content;
-    border: 2px solid black;
+    border: 1px solid black;
     padding: 20px;
     margin: 1px;
     padding: 20px;
@@ -28,7 +28,7 @@ main {
 
 aside {
     grid-area: sidebar;
-    border: 2px solid black;
+    border: 1px solid black;
     justify-content: center;
     margin: 1px;
     padding: 20px;
@@ -46,7 +46,7 @@ aside img {
 footer {
     padding: 20px;
     grid-area: footer;
-    border: 2px solid black;
+    border: 1px solid black;
     text-align: center;
     margin: 1px;
 }
