@@ -1,4 +1,4 @@
-.wrapper {
+.container {
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 4fr;
@@ -89,7 +89,7 @@ input {
 }
 
 @media only screen and (max-width: 500px) {
-    .wrapper {
+    .container {
         grid-template-columns: 1fr 4fr;
         grid-template-areas:
             "header header"
