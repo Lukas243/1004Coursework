@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dottedSpace = document.querySelector(".dottedSpace");
         dottedSpace.style.display = "none";
 
-        const table = document.getElementById("table")
+        const table = document.getElementById("results")
         table.innerHTML = "";
 
         if (driverName && driverLicense) {
@@ -86,13 +86,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function submitVehicle(form) {
-        // todo: point 2 on JS. If vehicle not in the system then what?
         var regPlate = form.regPlate.value;
 
         const dottedSpace = document.querySelector(".dottedSpace");
         dottedSpace.style.display = "none";
 
-        const table = document.getElementById("table")
+        const table = document.getElementById("results")
         table.innerHTML = "";
 
         const errorMessage = document.getElementById("errorMessage");
@@ -107,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const { data, error } = await supabase
             .from("Vehicles")
             .select("VehicleID, Make, Model, Colour, People(Name, LicenseNumber)")
-            .ilike("VehicleID", `%${regPlate}%`); // todo: check whether the whole plate needs to match or not.
+            .ilike("VehicleID", `%${regPlate}%`);
 
         if (error) {
             console.error("Error fetching vehicle:", error);
@@ -208,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const success = document.createElement("p");
+
             success.innerHTML = "<b>Succesfully added vehicle</b>";
 
             form.appendChild(success);
@@ -249,9 +249,6 @@ document.addEventListener('DOMContentLoaded', function () {
         addVehicleButton.id = "addVehicle";
 
         form.appendChild(addVehicleButton);
-
-        // add vehicle todo: finish here
-
 
         const { error: erro2 } = await supabase
             .from("Vehicles")
