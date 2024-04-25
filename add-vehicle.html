@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta lang="en">
+    <meta name="author" content="Lukas Greenhalf">
+    <meta name="description" content="Add vehicle">
+    <meta name="keywords" content="People, vehicle, add vehicle">
+    <title>Add Vehicle</title>
+
+    <link rel="stylesheet" href="main-style.css">
+    <script src="main-javascript.js" type="module"></script>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h3>Add Vehicle</h3>
+
+            <nav class="navHeader">
+                <ul>
+                    <li><a href="people-search.html">People search</a></li>
+                    <li><a href="vehicle-search.html">Vehicle search</a></li>
+                    <li><a href="add-vehicle.html">Add a vehicle</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <aside>
+            <img src="search-icon.png" alt="searchIcon">
+        </aside>
+
+        <main>
+            <form id="driverForm">
+                <label for="regPlate" id="regLabel">Registration Plate:</label>
+                <input type="text" id="regPlate" name="regPlate" placeholder="Enter registration plate"><br><br>
+
+                <label for="make" id="makeLabel">Make:</label>
+                <input type="text" id="make" name="make" placeholder="Enter vehicle make"><br><br>
+
+                <label for="model" id="modelLabel">Model:</label>
+                <input type="text" id="model" name="model" placeholder="Enter vehicle model"><br><br>
+
+                <label for="colour" id="colourLabel">Colour:</label>
+                <input type="text" id="colour" name="colour" placeholder="Enter vehicle colour"><br><br>
+
+                <label for="ownerID" id="ownerLabel">OwnerID:</label>
+                <input type="text" id="ownerID" name="ownerID" placeholder="Enter vehicle OwnerID"><br><br>
+
+                <input type="button" id="addVehicle" value="Submit">
+            </form>
+        </main>
+        <footer>Footer</footer>
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta lang="en">
+    <meta name="author" content="Lukas Greenhalf">
+    <meta name="description" content="Search by registration number">
+    <meta name="keywords" content="People, vehicle, number plate">
+    <title>Vehicle Search</title>
+
+    <link rel="stylesheet" href="main-style.css">
+    <script src="main-javascript.js" type="module"></script>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h3>Vehicle Search</h3>
+
+            <nav class="navHeader">
+                <ul>
+                    <li><a href="people-search.html">People search</a></li>
+                    <li><a href="vehicle-search.html">Vehicle search</a></li>
+                    <li><a href="add-vehicle.html">Add a vehicle</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <aside>
+            <img src="search-icon.png" alt="searchIcon">
+        </aside>
+
+        <main>
+            <form id="driverForm">
+                <label for="regPlate">Registration Plate:</label>
+                <input type="text" id="regPlate" name="regPlate" placeholder="Enter registration plate"><br><br>
+
+                <input type="button" name="button" value="Submit" id="vehicleSearch">
+            </form>
+
+            <div class="dottedSpace"></div>
+            <table id="table" border="1">
+                <p id="errorMessage"></p>
+
+            </table>
+        </main>
+
+        <footer>Footer</footer>
+    </div>
+
+</body>
+
+</html>
