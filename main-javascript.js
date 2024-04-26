@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const { data: data1, error: error1 } = await supabase
                 .from("People")
                 .select("*")
-                .or(`Name.ilike.*${name} %*, Name.ilike.*% ${name}`);
+                .or(`Name.ilike.*${name} %*, Name.ilike.*% ${name}, Name.ilike.${name}`);
 
             data = data1;
             error = error1;
@@ -195,10 +195,10 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const { data, error: error1 } = await supabase
+        const { data, error1 } = await supabase
             .from("People")
             .select("PersonID")
-            .eq("PersonID", owner)
+            .or(`Name.ilike.*${owner} %*, Name.ilike.*% ${owner}, Name.ilike.${name}`);
 
         if (error1) {
             console.log("Error creating vehicle");
@@ -212,22 +212,30 @@ document.addEventListener('DOMContentLoaded', function () {
             form.submit();
         }
         else {
+            const { data2, error2 } = await supabase
+                .from("People")
+                .select("PersonID")
+                .or(`Name.ilike.*${owner} %*, Name.ilike.*% ${owner}, Name.ilike.${name}`);
+
+            console.log(data2[0]);
             const { error } = await supabase
                 .from("Vehicles")
-                .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: owner })
+                .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: data2 })
 
             if (error) {
                 console.log("Error adding vehicle");
                 return;
             }
-
-            const success = document.createElement("p");
-            success.id = "message";
-
-            success.innerHTML = "<b>Vehicle added successfully</b>";
-
-            form.appendChild(success);
         }
+
+
+
+        const success = document.createElement("p");
+        success.id = "message";
+
+        success.innerHTML = "<b>Vehicle added successfully</b>";
+
+        form.appendChild(success);
     }
 
     async function addPerson(form) {
@@ -278,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const { error: erro2 } = await supabase
             .from("Vehicles")
-            .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: owner })
+            .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: personid })
 
         if (erro2) {
             console.log("Error adding vehicle");
