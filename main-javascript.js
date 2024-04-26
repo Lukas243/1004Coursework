@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function submitVehicle(form) {
-        var regPlate = form.regPlate.value;
+        var rego = form.rego.value;
 
         const dottedSpace = document.querySelector(".dottedSpace");
         dottedSpace.style.display = "none";
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
         message.innerHTML = "";
 
 
-        if (!regPlate) {
+        if (!rego) {
             console.error("No plate entered");
             message.innerHTML = "<b>Error</b>"
             return;
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const { data, error } = await supabase
             .from("Vehicles")
             .select("VehicleID, Make, Model, Colour, People(Name, LicenseNumber)")
-            .ilike("VehicleID", `%${regPlate}%`);
+            .ilike("VehicleID", `%${rego}%`);
 
         if (error) {
             console.error("Error fetching vehicle:", error);
@@ -181,16 +181,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function addVehicle(form) {
-        var regPlate = form.regPlate.value;
+        var rego = form.rego.value;
         var make = form.make.value;
         var model = form.model.value;
         var colour = form.colour.value;
-        var ownerID = form.ownerID.value;
+        var owner = form.owner.value;
 
         const { data, error: error1 } = await supabase
             .from("People")
             .select("PersonID")
-            .eq("PersonID", ownerID)
+            .eq("PersonID", owner)
 
         if (error1) {
             console.error("Error creating vehicle:", error);
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else {
             const { error } = await supabase
                 .from("Vehicles")
-                .insert({ VehicleID: regPlate, Make: make, Model: model, Colour: colour, OwnerID: ownerID })
+                .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, owner: owner })
 
             if (error) {
                 console.log("Error adding vehicle");
@@ -225,20 +225,20 @@ document.addEventListener('DOMContentLoaded', function () {
         var name = form.name.value;
         var address = form.address.value;
         var DOB = form.DOB.value;
-        var licenseNumber = form.licenseNumber.value;
-        var expiryDate = form.expiryDate.value;
+        var license = form.license.value;
+        var expire = form.expire.value;
 
         const urlParam = new URLSearchParams(window.location.search);
 
-        var regPlate = urlParam.get("regPlate");
+        var rego = urlParam.get("rego");
         var make = urlParam.get("make");
         var model = urlParam.get("model");
         var colour = urlParam.get("colour");
-        var ownerID = urlParam.get("ownerID");
+        var owner = urlParam.get("owner");
 
         const { error } = await supabase
             .from("People")
-            .insert({ PersonID: ownerID, Name: name, Address: address, DOB: DOB, LicenseNumber: licenseNumber, ExpiryDate: expiryDate });
+            .insert({ PersonID: owner, Name: name, Address: address, DOB: DOB, LicenseNumber: license, ExpiryDate: expire });
 
         if (error) {
             console.log("Error creating person");
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const { error: erro2 } = await supabase
             .from("Vehicles")
-            .insert({ VehicleID: regPlate, Make: make, Model: model, Colour: colour, OwnerID: ownerID })
+            .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, owner: owner })
 
         if (erro2) {
             console.log("Error adding vehicle");
