@@ -227,15 +227,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log("Error adding vehicle");
                 return;
             }
+
+            const success = document.getElementById("message");
+
+            success.innerHTML = "<b>Vehicle added successfully</b>";
+
+            form.appendChild(success);
         }
 
 
 
-        const success = document.getElementById("message");
 
-        success.innerHTML = "<b>Vehicle added successfully</b>";
-
-        form.appendChild(success);
     }
 
     async function addPerson(form) {
