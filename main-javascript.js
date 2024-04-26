@@ -6,7 +6,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 document.addEventListener('DOMContentLoaded', function () {
     async function submitPeople(form) {
         var name = form.name.value;
-        var driverLicense = form.driverLicense.value;
+        var license = form.license.value;
         let error = null;
         let data = null;
 
@@ -16,13 +16,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const table = document.getElementById("results")
         table.innerHTML = "";
 
-        if (name && driverLicense) {
+        if (name && license) {
             const message = document.getElementById("message");
             message.innerHTML = "<b>Error</b>"
             console.log("Error: Cannot search by both driver's name and license");
             return;
         }
-        else if (name && !driverLicense) {
+        else if (name && !license) {
             const { data: data1, error: error1 } = await supabase
                 .from("People")
                 .select("*")
@@ -31,11 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
             data = data1;
             error = error1;
         }
-        else if (driverLicense && !name) {
+        else if (license && !name) {
             const { data: data1, error: error1 } = await supabase
                 .from("People")
                 .select("*")
-                .eq("LicenseNumber", driverLicense);
+                .eq("LicenseNumber", license);
             data = data1;
             error = error1;
         }
