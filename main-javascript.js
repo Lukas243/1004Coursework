@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (error) {
             console.error("Error fetching driver:", error);
+            message.innerHTML = `<b>Error</b>`
             return;
         }
         else if (data.length == 0) {
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (error) {
             console.error("Error fetching vehicle:", error);
+            message.innerHTML = "<b>Error</b>";
             return;
         }
         else if (data.length == 0) {
@@ -203,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (error1) {
             console.log("Error creating vehicle");
+            errorMessage.innerHTML = "<b>Error</b>";
             return;
         }
         // create new person
@@ -225,6 +228,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (error) {
                 console.log("Error adding vehicle");
+                const errorMessage = document.getElementById("message");
+                errorMessage.innerHTML = "<b>Error</b>";
                 return;
             }
 
@@ -270,13 +275,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (error) {
             console.log("Error creating person");
+            const successMessage = document.createElement("p");
+            successMessage.id = "message";
+            successMessage.innerHTML = `<b>Error</b>`
+            form.appendChild(successMessage);
             return;
         }
 
-        const successMessage = document.createElement("p");
-        successMessage.id = "message";
-        successMessage.innerHTML = `<b>Vehicle added successfully</b>`
-        form.appendChild(successMessage);
+
 
         const addVehicleButton = document.createElement("input")
         addVehicleButton.type = "button";
@@ -286,14 +292,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
         form.appendChild(addVehicleButton);
 
-        const { error: erro2 } = await supabase
+        const { error: error2 } = await supabase
             .from("Vehicles")
             .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: personid })
 
-        if (erro2) {
+        if (error2) {
+            const successMessage = document.createElement("p");
+            successMessage.id = "message";
+            successMessage.innerHTML = `<b>Error</b>`
+            form.appendChild(successMessage);
             console.log("Error adding vehicle");
             return;
         }
+
+        const successMessage = document.createElement("p");
+        successMessage.id = "message";
+        successMessage.innerHTML = `<b>Vehicle added successfully</b>`
+        form.appendChild(successMessage);
 
         document.getElementById("addVehicle").addEventListener("click", function () {
             switchPage(document.getElementById("driverForm"));
