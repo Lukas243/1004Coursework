@@ -211,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
             form.method = "GET";
             form.addVehicle.type = "submit"
             form.submit();
+            return;
         }
         else {
             const { data: data2, error: error2 } = await supabase
@@ -263,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const { error } = await supabase
             .from("People")
-            .insert({ PersonID: personid, Name: name, Address: address, dob: dob, LicenseNumber: license, ExpiryDate: expire });
+            .insert({ PersonID: personid, Name: name, Address: address, DOB: dob, LicenseNumber: license, ExpiryDate: expire });
 
         if (error) {
             console.log("Error creating person");
