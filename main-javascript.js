@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (name && driverLicense) {
             const message = document.getElementById("message");
-            message.innerHTML = "<b>Either search by driver's name OR driver's license</b>"
+            message.innerHTML = "<b>Error</b>"
             console.log("Error: Cannot search by both driver's name and license");
             return;
         }
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const { data: data1, error: error1 } = await supabase
                 .from("People")
                 .select("*")
-                .or(`Name.ilike.*${name}*, Name.ilike.*${name}*`);
+                .or(`Name.ilike.*${name} %*, Name.ilike.*% ${name}`);
 
             data = data1;
             error = error1;
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         else {
             const message = document.getElementById("message");
-            message.innerHTML = "<b>Either search by driver's name OR driver's license</b>"
+            message.innerHTML = "<b>Error</b>"
             return;
         }
 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (data.length == 0) {
             console.log("Driver not found");
 
-            message.innerHTML = "<b>Driver not found</b>";
+            message.innerHTML = "<b>No result found</b>";
             const mainElement = document.querySelector("main");
             mainElement.appendChild(message);
             return;
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!regPlate) {
             console.error("No plate entered");
-            message.innerHTML = "<b>Registration plate required</b>"
+            message.innerHTML = "<b>Error</b>"
             return;
         }
         const { data, error } = await supabase
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (data.length == 0) {
             console.log("Vehicle not found");
 
-            message.innerHTML = "<b>Vehicle not found</b>";
+            message.innerHTML = "<b>No result found</b>";
             const mainElement = document.querySelector("main");
             mainElement.appendChild(message);
             return;
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < data.length; i++) {
 
             const record = document.createElement("tr");
-
+            const div = document.createElement("div");
             for (const column in data[0]) {
                 if (data[i][column]) {
                     if (column != "People") {
@@ -173,8 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }
+            record.appendChild(div);
             table.appendChild(record);
         }
+
+        message.innerHTML = "<b>Search successful</b>";
     }
 
     async function addVehicle(form) {
