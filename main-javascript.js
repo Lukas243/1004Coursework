@@ -5,7 +5,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 document.addEventListener('DOMContentLoaded', function () {
     async function submitPeople(form) {
-        var driverName = form.driverName.value;
+        var name = form.name.value;
         var driverLicense = form.driverLicense.value;
         let error = null;
         let data = null;
@@ -16,22 +16,22 @@ document.addEventListener('DOMContentLoaded', function () {
         const table = document.getElementById("results")
         table.innerHTML = "";
 
-        if (driverName && driverLicense) {
+        if (name && driverLicense) {
             const errorMessage = document.getElementById("errorMessage");
             errorMessage.innerHTML = "<b>Either search by driver's name OR driver's license</b>"
             console.log("Error: Cannot search by both driver's name and license");
             return;
         }
-        else if (driverName && !driverLicense) {
+        else if (name && !driverLicense) {
             const { data: data1, error: error1 } = await supabase
                 .from("People")
                 .select("*")
-                .or(`Name.ilike.*${driverName}*, Name.ilike.*${driverName}*`);
+                .or(`Name.ilike.*${name}*, Name.ilike.*${name}*`);
 
             data = data1;
             error = error1;
         }
-        else if (driverLicense && !driverName) {
+        else if (driverLicense && !name) {
             const { data: data1, error: error1 } = await supabase
                 .from("People")
                 .select("*")
@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < data.length; i++) {
 
             const record = document.createElement("tr");
+            const div = document.createElement("div");
             for (const column in data[0]) {
                 if (data[i][column]) {
                     if (column != "People") {
@@ -169,7 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }
-            table.appendChild(record);
+            div.appendChild(record);
+            table.appendChild(div);
         }
     }
 
