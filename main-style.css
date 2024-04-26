@@ -58,9 +58,12 @@ footer {
     margin-top: -20px;
 }
 
+.navUlClass {
+    display: flex;
+}
+
 nav ul {
     list-style-type: none;
-    display: flex;
     justify-content: space-between;
     width: 100%;
 }
