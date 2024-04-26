@@ -435,3 +435,16 @@ test("Add a vehicle (invalid data types)", async ({ page }) => {
     await page.getByRole("button", { name: "Add owner" }).click();
     await expect(page.locator("#message")).toContainText("Error")
 });
+
+// testing caps sensitivity
+test("Add a vehicle (testing caps sensitivity)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("123")
+    await page.locator("#make").fill("123")
+    await page.locator("#model").fill("123")
+    await page.locator("#colour").fill("123")
+    await page.locator("#owner").fill("rAchEL SmITh")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+
+    await expect(page.locator("#message")).toContainText("Vehicle added successfully")
+});

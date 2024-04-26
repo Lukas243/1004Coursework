@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (name && license) {
             const message = document.getElementById("message");
+            message.style.visibility = "visible";
             message.innerHTML = "<b>Error</b>"
             console.log("Error: Cannot search by both driver's name and license");
             return;
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         else {
             const message = document.getElementById("message");
+            message.style.visibility = "visible";
             message.innerHTML = "<b>Error</b>"
             return;
         }
@@ -50,12 +52,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (error) {
             console.error("Error fetching driver:", error);
+            message.style.visibility = "visible";
             message.innerHTML = `<b>Error</b>`
             return;
         }
         else if (data.length == 0) {
             console.log("Driver not found");
-
+            message.style.visibility = "visible";
             message.innerHTML = "<b>No result found</b>";
             const mainElement = document.querySelector("main");
             mainElement.appendChild(message);
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
             record.appendChild(div)
             table.appendChild(record);
         }
-
+        message.style.visibility = "visible";
         message.innerHTML = "<b>Search successful</b>";
     }
 
@@ -104,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!rego) {
             console.error("No plate entered");
+            message.style.visibility = "visible";
             message.innerHTML = "<b>Error</b>"
             return;
         }
@@ -114,12 +118,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (error) {
             console.error("Error fetching vehicle:", error);
+            message.style.visibility = "visible";
             message.innerHTML = "<b>Error</b>";
             return;
         }
         else if (data.length == 0) {
             console.log("Vehicle not found");
-
+            message.style.visibility = "visible";
             message.innerHTML = "<b>No result found</b>";
             const mainElement = document.querySelector("main");
             mainElement.appendChild(message);
@@ -178,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
             record.appendChild(div);
             table.appendChild(record);
         }
-
+        message.style.visibility = "visible";
         message.innerHTML = "<b>Search successful</b>";
     }
 
@@ -193,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
         errorMessage.innerHTML = "";
 
         if (!rego || !make || !model || !colour || !owner) {
+            errorMessage.style.visibility = "visible";
             errorMessage.innerHTML = "<b>Error</b>"
             form.appendChild(errorMessage);
             return;
@@ -201,10 +207,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const { data, error1 } = await supabase
             .from("People")
             .select("PersonID")
-            .eq("Name", owner);
+            .ilike("Name", owner);
 
         if (error1) {
             console.log("Error creating vehicle");
+            errorMessage.style.visibility = "visible";
             errorMessage.innerHTML = "<b>Error</b>";
             return;
         }
@@ -220,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const { data: data2, error: error2 } = await supabase
                 .from("People")
                 .select("PersonID")
-                .eq("Name", owner);
+                .ilike("Name", owner);
 
             const { error } = await supabase
                 .from("Vehicles")
@@ -229,12 +236,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (error) {
                 console.log("Error adding vehicle");
                 const errorMessage = document.getElementById("message");
+                errorMessage.style.visibility = "visible";
                 errorMessage.innerHTML = "<b>Error</b>";
                 return;
             }
 
             const success = document.getElementById("message");
-
+            success.style.visibility = "visible";
             success.innerHTML = "<b>Vehicle added successfully</b>";
 
             form.appendChild(success);
