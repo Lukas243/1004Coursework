@@ -187,13 +187,21 @@ document.addEventListener('DOMContentLoaded', function () {
         var colour = form.colour.value;
         var owner = form.owner.value;
 
+        if (!rego || !make || !model || !colour || !owner) {
+            const errorMessage = document.createElement("p");
+            errorMessage.id = "message";
+            errorMessage.innerHTML = "<b>Error</b>"
+            form.appendChild(errorMessage);
+            return;
+        }
+
         const { data, error: error1 } = await supabase
             .from("People")
             .select("PersonID")
             .eq("PersonID", owner)
 
         if (error1) {
-            console.error("Error creating vehicle:", error);
+            console.log("Error creating vehicle");
             return;
         }
         // create new person
@@ -206,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else {
             const { error } = await supabase
                 .from("Vehicles")
-                .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, owner: owner })
+                .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: owner })
 
             if (error) {
                 console.log("Error adding vehicle");
@@ -214,14 +222,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const success = document.createElement("p");
+            success.id = "message";
 
-            success.innerHTML = "<b>Succesfully added vehicle</b>";
+            success.innerHTML = "<b>Vehicle added successfully</b>";
 
             form.appendChild(success);
         }
     }
 
     async function addPerson(form) {
+        var personid = form.personid.value;
         var name = form.name.value;
         var address = form.address.value;
         var DOB = form.DOB.value;
@@ -236,9 +246,17 @@ document.addEventListener('DOMContentLoaded', function () {
         var colour = urlParam.get("colour");
         var owner = urlParam.get("owner");
 
+        if (!personid || !name || !address || !DOB || !license || !expire) {
+            const errorMessage = document.createElement("p");
+            errorMessage.id = "message";
+            errorMessage.innerHTML = "<b>Error</b>"
+            form.appendChild(errorMessage);
+            return;
+        }
+
         const { error } = await supabase
             .from("People")
-            .insert({ PersonID: owner, Name: name, Address: address, DOB: DOB, LicenseNumber: license, ExpiryDate: expire });
+            .insert({ PersonID: personid, Name: name, Address: address, DOB: DOB, LicenseNumber: license, ExpiryDate: expire });
 
         if (error) {
             console.log("Error creating person");
@@ -246,7 +264,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const successMessage = document.createElement("p");
-        successMessage.innerHTML = `<b>Successfully created person and vehicle</b>`
+        successMessage.id = "message";
+        successMessage.innerHTML = `<b>Vehicle added successfully</b>`
         form.appendChild(successMessage);
 
         const addVehicleButton = document.createElement("input")
@@ -259,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const { error: erro2 } = await supabase
             .from("Vehicles")
-            .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, owner: owner })
+            .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: owner })
 
         if (erro2) {
             console.log("Error adding vehicle");
