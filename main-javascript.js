@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
         table.innerHTML = "";
 
         if (name && driverLicense) {
-            const errorMessage = document.getElementById("errorMessage");
-            errorMessage.innerHTML = "<b>Either search by driver's name OR driver's license</b>"
+            const message = document.getElementById("message");
+            message.innerHTML = "<b>Either search by driver's name OR driver's license</b>"
             console.log("Error: Cannot search by both driver's name and license");
             return;
         }
@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', function () {
             error = error1;
         }
         else {
-            const errorMessage = document.getElementById("errorMessage");
-            errorMessage.innerHTML = "<b>Either search by driver's name OR driver's license</b>"
+            const message = document.getElementById("message");
+            message.innerHTML = "<b>Either search by driver's name OR driver's license</b>"
             return;
         }
 
-        const errorMessage = document.getElementById("errorMessage");
-        errorMessage.innerHTML = "";
+        const message = document.getElementById("message");
+        message.innerHTML = "";
 
         if (error) {
             console.error("Error fetching driver:", error);
@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (data.length == 0) {
             console.log("Driver not found");
 
-            errorMessage.innerHTML = "<b>Driver not found</b>";
+            message.innerHTML = "<b>Driver not found</b>";
             const mainElement = document.querySelector("main");
-            mainElement.appendChild(errorMessage);
+            mainElement.appendChild(message);
             return;
         }
 
@@ -84,6 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
             record.appendChild(div)
             table.appendChild(record);
         }
+
+        message.innerHTML = "<b>Search successful</b>";
     }
 
     async function submitVehicle(form) {
@@ -95,13 +97,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const table = document.getElementById("results")
         table.innerHTML = "";
 
-        const errorMessage = document.getElementById("errorMessage");
-        errorMessage.innerHTML = "";
+        const message = document.getElementById("message");
+        message.innerHTML = "";
 
 
         if (!regPlate) {
             console.error("No plate entered");
-            errorMessage.innerHTML = "<b>Registration plate required</b>"
+            message.innerHTML = "<b>Registration plate required</b>"
             return;
         }
         const { data, error } = await supabase
@@ -116,9 +118,9 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (data.length == 0) {
             console.log("Vehicle not found");
 
-            errorMessage.innerHTML = "<b>Vehicle not found</b>";
+            message.innerHTML = "<b>Vehicle not found</b>";
             const mainElement = document.querySelector("main");
-            mainElement.appendChild(errorMessage);
+            mainElement.appendChild(message);
             return;
         }
 
