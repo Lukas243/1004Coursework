@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let data = null;
 
         const dottedSpace = document.querySelector(".dottedSpace");
-        dottedSpace.style.display = "none";
+        dottedSpace.style.padding = "10px";
 
         const table = document.getElementById("results")
         table.innerHTML = "";
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var rego = form.rego.value;
 
         const dottedSpace = document.querySelector(".dottedSpace");
-        dottedSpace.style.display = "none";
+        dottedSpace.style.padding = "10px";
 
         const table = document.getElementById("results")
         table.innerHTML = "";
