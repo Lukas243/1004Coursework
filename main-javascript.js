@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
             form.method = "GET";
             form.addVehicle.type = "submit"
             form.submit();
-            return;
+            //return;
         }
         else {
             const { data: data2, error: error2 } = await supabase
