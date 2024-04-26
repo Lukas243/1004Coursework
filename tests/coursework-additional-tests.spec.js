@@ -246,3 +246,192 @@ test("Add a person (person id already exists)", async ({ page }) => {
     await page.getByRole("button", { name: "Add owner" }).click();
     await expect(page.locator("#message")).toContainText("Error")
 });
+
+// missing reg plate
+test("Add a vehicle (missing reg plate)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing make
+test("Add a vehicle (missing make)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing model
+test("Add a vehicle(missing model)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing colour
+test("Add a vehicle(missing colour)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing owner
+test("Add a vehicle(missing owner)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing person id
+test("Add a person (missing person id)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+
+    await page.locator("#name").fill("Lukas Halfgreen")
+    await page.locator("#address").fill("Sevenoaks")
+    await page.locator("#dob").fill("2004-12-06")
+    await page.locator("#license").fill("SD876ES")
+    await page.locator("#expire").fill("2030-01-01")
+    await page.getByRole("button", { name: "Add owner" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing name
+test("Add a person (missing name)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+
+    await page.locator("#personid").fill("6")
+    await page.locator("#address").fill("Sevenoaks")
+    await page.locator("#dob").fill("2004-12-06")
+    await page.locator("#license").fill("SD876ES")
+    await page.locator("#expire").fill("2030-01-01")
+    await page.getByRole("button", { name: "Add owner" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing address
+test("Add a person (missing address)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+
+    await page.locator("#personid").fill("6")
+    await page.locator("#name").fill("Lukas Halfgreen")
+    await page.locator("#dob").fill("2004-12-06")
+    await page.locator("#license").fill("SD876ES")
+    await page.locator("#expire").fill("2030-01-01")
+    await page.getByRole("button", { name: "Add owner" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing DOB
+test("Add a person (missing DOB)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+
+    await page.locator("#personid").fill("6")
+    await page.locator("#name").fill("Lukas Halfgreen")
+    await page.locator("#address").fill("Sevenoaks")
+    await page.locator("#license").fill("SD876ES")
+    await page.locator("#expire").fill("2030-01-01")
+    await page.getByRole("button", { name: "Add owner" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing License
+test("Add a person (missing License)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+
+    await page.locator("#personid").fill("6")
+    await page.locator("#name").fill("Lukas Halfgreen")
+    await page.locator("#address").fill("Sevenoaks")
+    await page.locator("#dob").fill("2004-12-06")
+    await page.locator("#expire").fill("2030-01-01")
+    await page.getByRole("button", { name: "Add owner" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// missing expiry date
+test("Add a person (missing expiry date)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("GK12XRR")
+    await page.locator("#make").fill("Mini")
+    await page.locator("#model").fill("First")
+    await page.locator("#colour").fill("White")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+
+    await page.locator("#personid").fill("6")
+    await page.locator("#name").fill("Lukas Halfgreen")
+    await page.locator("#address").fill("Sevenoaks")
+    await page.locator("#dob").fill("2004-12-06")
+    await page.locator("#license").fill("SD876ES")
+    await page.getByRole("button", { name: "Add owner" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
+
+// invalid data type
+test("Add a vehicle (invalid data types)", async ({ page }) => {
+    await page.getByRole("link", { name: "Add a vehicle" }).click();
+    await page.locator("#rego").fill("123")
+    await page.locator("#make").fill("123")
+    await page.locator("#model").fill("123")
+    await page.locator("#colour").fill("123")
+    await page.locator("#owner").fill("Lukas Halfgreen")
+    await page.getByRole("button", { name: "Add vehicle" }).click();
+
+    await page.locator("#personid").fill("string")
+    await page.locator("#name").fill("Lukas Halfgreen")
+    await page.locator("#address").fill("Sevenoaks")
+    await page.locator("#dob").fill("2004-12-06")
+    await page.locator("#license").fill("SD876ES")
+    await page.locator("#expire").fill("2030-01-01")
+    await page.getByRole("button", { name: "Add owner" }).click();
+    await expect(page.locator("#message")).toContainText("Error")
+});
