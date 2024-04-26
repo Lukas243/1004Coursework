@@ -88,7 +88,7 @@ input {
 }
 
 @media only screen and (max-width: 500px) {
-    .container {
+    #container {
         grid-template-columns: 1fr 4fr;
         grid-template-areas:
             "header header"
@@ -111,6 +111,4 @@ input {
         max-width: 100%;
         max-height: 100%;
     }
-
-
 }
