@@ -187,9 +187,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var colour = form.colour.value;
         var owner = form.owner.value;
 
+        const errorMessage = document.getElementById("message");
+        errorMessage.innerHTML = "";
+
         if (!rego || !make || !model || !colour || !owner) {
-            const errorMessage = document.createElement("p");
-            errorMessage.id = "message";
             errorMessage.innerHTML = "<b>Error</b>"
             form.appendChild(errorMessage);
             return;
@@ -198,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const { data, error1 } = await supabase
             .from("People")
             .select("PersonID")
-            .or(`Name.ilike.*${owner} %*, Name.ilike.*% ${owner}, Name.ilike.${name}`);
+            .eq("Name", owner);
 
         if (error1) {
             console.log("Error creating vehicle");
@@ -212,15 +213,14 @@ document.addEventListener('DOMContentLoaded', function () {
             form.submit();
         }
         else {
-            const { data2, error2 } = await supabase
+            const { data: data2, error: error2 } = await supabase
                 .from("People")
                 .select("PersonID")
-                .or(`Name.ilike.*${owner} %*, Name.ilike.*% ${owner}, Name.ilike.${name}`);
+                .eq("Name", owner);
 
-            console.log(data2[0]);
             const { error } = await supabase
                 .from("Vehicles")
-                .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: data2 })
+                .insert({ VehicleID: rego, Make: make, Model: model, Colour: colour, OwnerID: data2[0].PersonID })
 
             if (error) {
                 console.log("Error adding vehicle");
@@ -230,8 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-        const success = document.createElement("p");
-        success.id = "message";
+        const success = document.getElementById("message");
 
         success.innerHTML = "<b>Vehicle added successfully</b>";
 
