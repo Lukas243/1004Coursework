@@ -7,3 +7,4 @@
 * **CSS:** Responsive front-end, adapts to screen size.
 * **JS:** Created extra playwright scripts.
 * **Database:** Created extra playwright scripts.
+* **Playwright script:** https://github.com/Lukas243/coursework/blob/main/tests/coursework-additional-tests.spec.js
