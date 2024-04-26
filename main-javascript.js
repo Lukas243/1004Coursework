@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // create header
         const header = document.createElement("tr");
-
         for (const column in data[0]) {
             const columnHeader = document.createElement("th");
             columnHeader.textContent = column;
@@ -75,12 +74,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // create records
         for (let i = 0; i < data.length; i++) {
+            const div = document.createElement("div");
             const record = document.createElement("tr");
             for (const column in data[0]) {
                 const columnData = document.createElement("td");
                 columnData.textContent = data[i][column];
                 record.appendChild(columnData);
             }
+            record.appendChild(div)
             table.appendChild(record);
         }
     }
@@ -150,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < data.length; i++) {
 
             const record = document.createElement("tr");
-            const div = document.createElement("div");
+
             for (const column in data[0]) {
                 if (data[i][column]) {
                     if (column != "People") {
@@ -170,8 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }
-            div.appendChild(record);
-            table.appendChild(div);
+            table.appendChild(record);
         }
     }
 
