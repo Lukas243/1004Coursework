@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var personid = form.personid.value;
         var name = form.name.value;
         var address = form.address.value;
-        var DOB = form.DOB.value;
+        var dob = form.dob.value;
         var license = form.license.value;
         var expire = form.expire.value;
 
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var colour = urlParam.get("colour");
         var owner = urlParam.get("owner");
 
-        if (!personid || !name || !address || !DOB || !license || !expire) {
+        if (!personid || !name || !address || !dob || !license || !expire) {
             const errorMessage = document.createElement("p");
             errorMessage.id = "message";
             errorMessage.innerHTML = "<b>Error</b>"
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const { error } = await supabase
             .from("People")
-            .insert({ PersonID: personid, Name: name, Address: address, DOB: DOB, LicenseNumber: license, ExpiryDate: expire });
+            .insert({ PersonID: personid, Name: name, Address: address, dob: dob, LicenseNumber: license, ExpiryDate: expire });
 
         if (error) {
             console.log("Error creating person");
