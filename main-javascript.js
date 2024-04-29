@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const { data, error } = await supabase
             .from("Vehicles")
             .select("VehicleID, Make, Model, Colour, People(Name, LicenseNumber)")
-            .ilike("VehicleID", `%${rego}%`);
+            .eq("VehicleID", rego);
 
         if (error) {
             console.error("Error fetching vehicle:", error);
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const { data, error1 } = await supabase
             .from("People")
             .select("PersonID")
-            .ilike("Name", owner);
+            .eq("Name", owner);
 
         if (error1) {
             console.log("Error creating vehicle");
